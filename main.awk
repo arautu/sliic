@@ -8,7 +8,8 @@ BEGIN {
 
 BEGINFILE {
   if (FILENAME !~ ".utf8") {
-    convertUtf8ToIso8859();
+    convertIso8859ToUtf8();
+    rewind();
   }
   
   for (i in ARGV) {
@@ -21,5 +22,5 @@ BEGINFILE {
 }
 
 ENDFILE {
-  convertIso8859ToUtf8();
+  convertUtf8ToIso8859();
 }
