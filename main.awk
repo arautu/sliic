@@ -7,8 +7,9 @@ BEGIN {
 }
 
 BEGINFILE {
-  print "main.awk";
-  convertUtf8ToIso8859();
+  if (FILENAME !~ ".utf8") {
+    convertUtf8ToIso8859();
+  }
   
   for (i in ARGV) {
     
@@ -17,4 +18,8 @@ BEGINFILE {
   }
   printf "ARGC=%d\n",ARGC;
   printf "ARGIND=%s\n",ARGIND;
+}
+
+ENDFILE {
+  convertIso8859ToUtf8();
 }
