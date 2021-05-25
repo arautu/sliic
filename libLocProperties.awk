@@ -1,6 +1,8 @@
 # Arquivo: libLocProperties.awk
 # Descrição: Localizar um determinado arquivo de dicionário (.properties) de um projeto
+@include "libMetaWsr"
 @namespace "properties";
+
 
 BEGIN {
   findFiles("src");
@@ -25,7 +27,7 @@ function main() {
  file1 = "/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_GestaoSeguranca/src/com/sliic/sliicerp/gestaoseguranca/bean/dto/AvisosTreinamentosMotoristaDTO.java"
 
 #  print getFileProperties(projeto, fileProperties);
-  parserFilePath("/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/auditoriaListagem.jsp");
+  parserFilePath("/home/leandro/Sliic/git/sliic-rastreamento/Sliic_Gateway/webapp/erro.jsp");
 
   for (i in msgs_paths)
     for (j in msgs_paths[i]) {
@@ -35,20 +37,20 @@ function main() {
     }
 }
 
-function parserFilePath(absPathFile,    i, aTmp, wset) {
+function parserFilePath(absPathFile,    i, aPathFile, project) {
   split(absPathFile, aPathFile, "/");
   for (i in aPathFile) {
     if (aPathFile[i] ~ /(\<Sliic_ERP\>|\<Sliic_ERP_Clientes\>|\<mirror-nextframework\>|\<sliic-auxiliares\>|\<sliic-frameworks\>|\<sliic-rastreamento\>)/) {
-      wset = aMetaFile["wset"] = aPathFile[i++];
+      aMetaFile["wset"] = aPathFile[i++];
       project = aMetaFile["project"] = aPathFile[i];
-      aMetaFile["module"] = @project(aPathFile, i, "module"); 
+      aMetaFile["module"] = @project(aPathFile, i, "module");
       aMetaFile["useCase"] = @project(aPathFile, i, "useCase");
       aMetaFile["file"] = aPathFile[length(aPathFile)];
       break;
     }
   }
   print absPathFile;
-  if (wset != "") {
+  if (aMetaFile["wset"] != "") {
     for (i in aMetaFile) {
       print i, aMetaFile[i];
     }
@@ -60,79 +62,60 @@ function parserFilePath(absPathFile,    i, aTmp, wset) {
   return 0;
 }
 
-function getProjectDetails(aPathFile, i, tipo) {
-  switch (tipo) {
-    case "module" :
-      if (length(aPathFile) == (i+5))
-        return "";
-      return aPathFile[i+5];
-    case "useCase" :
-      if (length(aPathFile) == (i+6))
-        return "";
-      return aPathFile[i+6];
-    default :
-      print "Erro: Módulo ou caso de uso não encontrado.";
-      return "";
-  }
+function awk::Sliic_Gateway(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::WSR(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Beans(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_Gateway(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Cadastro(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Beans(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Comercial(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Cadastro(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Configuracao(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Comercial(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Expedicao(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Configuracao(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_GestaoComportamental(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Expedicao(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_GestaoSeguranca(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoComportamental(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_GestaoSocioambiental(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoSeguranca(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
-}
-function awk::Sliic_ERP_Modulo_GestaoSocioambiental(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_GestaoViaria(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoViaria(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Integracao(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Integracao(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Operacional(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Operacional(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Rastreamento(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Rastreamento(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
-}
-
-function awk::Sliic_ERP_Modulo_Relatorio(aPathFile, i, tipo) {
-  return getProjectDetails(aPathFile, i, tipo);
+function awk::Sliic_ERP_Modulo_Relatorio(aPathFile, idx, tipo) {
+  return WSR(aPathFile, idx, tipo);
 }
 
 function findFiles(path) {
@@ -152,7 +135,3 @@ function findFiles(path) {
 #    for (j in msgs_paths[i])
 #      print msgs_paths[i][j];
 }
-
-
-
-
