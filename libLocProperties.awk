@@ -1,8 +1,7 @@
 # Arquivo: libLocProperties.awk
 # Descrição: Localizar um determinado arquivo de dicionário (.properties) de um projeto
 @include "libParserFilePath";
-@namespace "properties";
-
+@include "libChooseProperties";
 
 BEGIN {
   findFiles("src");
@@ -13,7 +12,6 @@ BEGINFILE{
 #  splitFilename();
   main();
 }
-
 
 function main() {
  projeto = "Sliic_ERP_Modulo_Configuracao";
@@ -26,15 +24,9 @@ function main() {
  file = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/controller/EmailContaCrud.java"
  file1 = "/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_GestaoSeguranca/src/com/sliic/sliicerp/gestaoseguranca/bean/dto/AvisosTreinamentosMotoristaDTO.java"
 
-#  print getFileProperties(projeto, fileProperties);
-  awk::parserFilePath("/home/leandro/Sliic/git/sliic-rastreamento/Sliic_Gateway/webapp/erro.jsp");
+  parserFilePath("/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/bean/dto/AvisoDTO.java", aMetaFile);
+  print chooseProperties(aMetaFile);
 
-  for (i in msgs_paths)
-    for (j in msgs_paths[i]) {
-      if (msgs_paths[i][j] ~ wset) {
-#        @wset();
-      }
-    }
 }
 
 function findFiles(path) {

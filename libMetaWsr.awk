@@ -1,6 +1,5 @@
 # Arquivo: libMetaWsr.awk
 # Descrição: Colhe os metadados do projeto WSR.
-@namespace "wsr";
 
 # Verifica no path fornecido, os diretórios relevantes e chama as funções
 # apropriadas para colher os metadados.
@@ -12,7 +11,7 @@
 # * Depende do argumento tipo. Se tipo = "module", então será retornado o
 # módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
 # o caso de uso do mesmo arquivo.
-function awk::WSR(aPathFile, idx, tipo) {
+function WSR(aPathFile, idx, tipo) {
   for (i in aPathFile) {
     switch (aPathFile[i]) {
       case /\<src\>/ :
