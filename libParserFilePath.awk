@@ -21,7 +21,7 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
   }
   if (aMetaFile["wset"] == "") {
     printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.", absPathFile;
-    return -1;
+    exit 1;
   }
   return 0;
 }
@@ -38,58 +38,58 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
 #
 # **Observe** que ela usa a função WSR(), porém, caso haja alguma diferença,
 # deve-se criar uma lib semelhante à libMetaWsr. 
-function awk::Sliic_Gateway(aPathFile, idx, tipo) {
+function Sliic_Gateway(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Beans(aPathFile, idx, tipo) {
+function Sliic_ERP_Beans(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Cadastro(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Cadastro(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Comercial(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Comercial(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Configuracao(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Configuracao(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Expedicao(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Expedicao(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoComportamental(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_GestaoComportamental(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoSeguranca(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_GestaoSeguranca(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoSocioambiental(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_GestaoSocioambiental(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_GestaoViaria(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_GestaoViaria(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Integracao(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Integracao(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Operacional(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Operacional(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Rastreamento(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Rastreamento(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }
 
-function awk::Sliic_ERP_Modulo_Relatorio(aPathFile, idx, tipo) {
+function Sliic_ERP_Modulo_Relatorio(aPathFile, idx, tipo) {
   return WSR(aPathFile, idx, tipo);
 }

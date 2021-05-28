@@ -1,5 +1,6 @@
 # Arquivo: libLocProperties.awk
-# Descrição: Localizar um determinado arquivo de dicionário (.properties) de um projeto
+# Descrição: Localizar um determinado arquivo de dicionário (.properties)
+# de um projeto
 @include "libParserFilePath";
 @include "libChooseProperties";
 
@@ -7,24 +8,13 @@ BEGIN {
   findFiles("src", msgs_paths);
 }
 
-BEGINFILE{
-  main();
-}
-
-function main() {
- projeto = "Sliic_ERP_Modulo_Configuracao";
- fileProperties = "Messages-business.properties"; 
- wset = "Sliic_ERP";
- a[1] = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/webapp/i18n/messages-view.properties"
- a[2] = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/webapp/i18n/messages-beans-relatorio.properties"
- a[3] = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/webapp/i18n/messages-business.properties"
- a[4] = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/webapp/i18n/messages-beans-configuracao.properties"
- file = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/controller/EmailContaCrud.java"
- file1 = "/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_GestaoSeguranca/src/com/sliic/sliicerp/gestaoseguranca/bean/dto/AvisosTreinamentosMotoristaDTO.java"
-
-  locProperties("/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/bean/dto/AvisoDTO.java");
-}
-
+# Retorna o nome e o caminho completo para o arquivo de dicionário
+# correspondente ao endereço do arquivo, recebido como parâmetro.
+# Parâmetros:
+# * absPathFile - caminho absoluto do arquivo que se deseja achar o arquivo
+#   dicionário correspondente.
+# Retorno:
+# * Nome e caminho completo do arquivo dicionário.
 function locProperties(absPathFile,     fileProperties, pathFileProperties) {
   parserFilePath(absPathFile, aMetaFile);
   fileProperties = chooseProperties(aMetaFile);
@@ -33,9 +23,15 @@ function locProperties(absPathFile,     fileProperties, pathFileProperties) {
       pathFileProperties = msgs_paths[i];
     }
   }
-  print "pathFileProperties", pathFileProperties;
+  return pathFileProperties;
 }
 
+# Lança o comando shell find para procurar todos os arquivos de dicionário,
+# presentes no projeto
+# Parâmetros:
+# * path - Caminho para o diretório, onde estão os projetos.
+# Retorno:
+# * msgs_paths - Array com nome e caminho dos arquivos dicionários.
 function findFiles(path, msgs_paths,    i) {
   find = sprintf("find %s -name \"messages-*.properties\" -not -path *bin*", path);
   print find |& "sh";

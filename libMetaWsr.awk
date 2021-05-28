@@ -45,7 +45,7 @@ function getDetailsFromSrc(aPathFile, idx, tipo) {
       return aPathFile[idx+6];
     default :
       print "Erro: Módulo ou caso de uso não encontrado.";
-      return "";
+      exit 1;
   }
 }
 
@@ -68,6 +68,6 @@ function getDetailsFromJsp(aPathFile, idx, tipo) {
       return "jsp"; 
     default :
       print "Erro: Módulo ou caso de uso não encontrado.";
-      return "";
+      exit 1;
   }
 }
