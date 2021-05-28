@@ -8,7 +8,6 @@
 # Retorno: 
 # * aMetaFile - Array com os metadados do arquivo.
 function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
-  print absPathFile;
   split(absPathFile, aPathFile, "/");
   for (i in aPathFile) {
     if (aPathFile[i] ~ /(\<Sliic_ERP\>|\<Sliic_ERP_Clientes\>|\<mirror-nextframework\>|\<sliic-auxiliares\>|\<sliic-frameworks\>|\<sliic-rastreamento\>)/) {

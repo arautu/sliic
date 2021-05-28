@@ -4,12 +4,10 @@
 @include "libChooseProperties";
 
 BEGIN {
-  findFiles("src");
-
+  findFiles("src", msgs_paths);
 }
 
 BEGINFILE{
-#  splitFilename();
   main();
 }
 
@@ -24,25 +22,27 @@ function main() {
  file = "sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/controller/EmailContaCrud.java"
  file1 = "/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_GestaoSeguranca/src/com/sliic/sliicerp/gestaoseguranca/bean/dto/AvisosTreinamentosMotoristaDTO.java"
 
-  parserFilePath("/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/bean/dto/AvisoDTO.java", aMetaFile);
-  print chooseProperties(aMetaFile);
-
+  locProperties("/home/leandro/Sliic/git/sliic-erp/Sliic_ERP/Sliic_ERP_Modulo_Configuracao/src/com/sliic/sliicerp/configuracao/bean/dto/AvisoDTO.java");
 }
 
-function findFiles(path) {
+function locProperties(absPathFile,     fileProperties, pathFileProperties) {
+  parserFilePath(absPathFile, aMetaFile);
+  fileProperties = chooseProperties(aMetaFile);
+  for (i in msgs_paths) {
+    if (msgs_paths[i] ~ aMetaFile["project"] && msgs_paths[i] ~ fileProperties) {
+      pathFileProperties = msgs_paths[i];
+    }
+  }
+  print "pathFileProperties", pathFileProperties;
+}
+
+function findFiles(path, msgs_paths,    i) {
   find = sprintf("find %s -name \"messages-*.properties\" -not -path *bin*", path);
   print find |& "sh";
   close("sh", "to");
-  i = 0;
 
   while (("sh" |& getline) > 0) {
-    msgs_paths[i][0] = "";
-    split($0, msgs_paths[i], "/");
-    i++;
+    msgs_paths[i++] = $0
   }
   close ("sh");
-
-#  for (i in msgs_paths)
-#    for (j in msgs_paths[i])
-#      print msgs_paths[i][j];
 }
