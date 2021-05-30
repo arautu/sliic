@@ -6,6 +6,7 @@ function convertIso8859ToUtf8() {
   if (FILENAME !~ ".utf8") {
     printf "iconv -c -f iso-8859-1 -t utf8 %1$s > %1$s.utf8\n", FILENAME | "sh";
     close ("sh");
+    rewind();
   }
 }
 
@@ -21,6 +22,9 @@ function rewind(  i) {
 
 # Converte encodes de UTF-8 para ISO8859-1
 function convertUtf8ToIso8859(  oldfilename) {
+  for (i = ARGC; i > ARGIND; i--) {
+    print ARGV[i];
+  }
   if (FILENAME ~ ".utf8") {
     oldfilename = ARGV[ARGIND - 1];
     printf "iconv -c -f utf8 -t iso-8859-1 %1$s.utf8 > %1$s\n", oldfilename | "sh";

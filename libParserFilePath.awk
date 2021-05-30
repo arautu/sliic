@@ -1,6 +1,6 @@
 # Arquivo: libParserFilePath.awk
   
-@include "libMetaWsr"
+@include "sliic/libMetaWsr"
 
 # Analisa o caminho do arquivo, retornando um array de metadados do path.
 # Argumentos:
@@ -20,7 +20,7 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
     }
   }
   if (aMetaFile["wset"] == "") {
-    printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.", absPathFile;
+    printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.\n", absPathFile;
     exit 1;
   }
   return 0;

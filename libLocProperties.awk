@@ -1,12 +1,8 @@
 # Arquivo: libLocProperties.awk
 # Descrição: Localizar um determinado arquivo de dicionário (.properties)
 # de um projeto
-@include "libParserFilePath";
-@include "libChooseProperties";
-
-BEGIN {
-  findFiles("src", msgs_paths);
-}
+@include "sliic/libParserFilePath";
+@include "sliic/libChooseProperties";
 
 # Retorna o nome e o caminho completo para o arquivo de dicionário
 # correspondente ao endereço do arquivo, recebido como parâmetro.
