@@ -1,5 +1,37 @@
-# Arquivo: locController.awk
+# Arquivo: libLocController.awk
 # Descrição: Localiza o controller correspondente a um determinado view.
+@include "sliic/libParserFilePath";
+
+# Procura pelo nome do controller, correspondente ao arquivo "viewPath".
+# Argumentos:
+# * viewPath - Endereço e nome do arquivo que se deseja procurar o controlador
+#   correspondente.
+# Retorno
+# * Nome do controller.
+function locController(viewPath,     projectPath, aMetaView, filename) {
+  parserFilePath(viewPath, aMetaView);
+  projectPath = substr(viewPath, 1, index(viewPath, aMetaView["project"]) -1);
+  projectPath = projectPath aMetaView["project"]; 
+  filename = aMetaView["file"];
+  sub(/\..+/,"", filename);
+  return lco_getController(lco_findFileController(projectPath, filename));
+}
+
+# Procura no arquivo indicado por "controllerPath" o nome do controller.
+# Argumentos:
+# * controllerPath - Endereço e nome do arquivo controller.
+# Retorno:
+# * Nome do controller
+function lco_getController(controllerPath,    controller) {
+  while (getline < controllerPath) {
+    if ($0 ~ /@Controller/) {
+      controller = gensub(/(.+path=)(.+)(,.+)/, "\\2","g");
+      break;
+    }
+  }
+  gsub(/(".+\/)|"/, "", controller);
+  return controller;
+}
 
 # Procura no diretório "projectPath" pelo arquivo controller, correspondente ao
 # arquivo "filename".
@@ -9,22 +41,30 @@
 # arquivo controller.
 # Retorno:
 # * Endereço e nome do arquivo controller.
-function locController(projectPath, filename,    oldfilename, paths, i) {
+function lco_findFileController(projectPath, filename,    oldfilename, paths, i, controllerPath) {
   do {
     lco_findJavaFiles(projectPath, filename, paths);
     oldfilename = filename;
     filename = lco_divideNome(toupper(substr(filename,1,1)) substr(filename, 2));
   } while (!isarray(paths) && (filename != oldfilename))
 
+  for (i in paths) {
+    if (paths[i] !~ /controller/) {
+      delete paths[i];
+    }
+    else {
+      controllerPath = paths[i];
+    }
+  }
   if (length(paths) > 1) {
-    print "Erro: Encontrado mais de 1 arquivo controller correspondente a %s", nome;
+    printf "Erro: Encontrado mais de 1 arquivo controller correspondente a %s\n", oldfilename;
     for (i in paths) {
-      print "Encontrado: %s", paths[i];
+      printf "Encontrado: %s\n", paths[i];
     }
     exit 1;
   }
   else {
-    return paths[0];
+    return controllerPath;
   }
 }
 
