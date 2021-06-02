@@ -1,20 +1,25 @@
 # Arquivo: libLocController.awk
 # Descrição: Localiza o controller correspondente a um determinado view.
-@include "sliic/libParserFilePath";
 
 # Procura pelo nome do controller, correspondente ao arquivo "viewPath".
 # Argumentos:
 # * viewPath - Endereço e nome do arquivo que se deseja procurar o controlador
 #   correspondente.
+#   aMetaView - Array com metadados do arquivo de dados.
 # Retorno
 # * Nome do controller.
-function locController(viewPath,     projectPath, aMetaView, filename) {
-  parserFilePath(viewPath, aMetaView);
-  projectPath = substr(viewPath, 1, index(viewPath, aMetaView["project"]) -1);
-  projectPath = projectPath aMetaView["project"]; 
-  filename = aMetaView["file"];
-  sub(/\..+/,"", filename);
-  return lco_getController(lco_findFileController(projectPath, filename));
+function locController(viewPath, aMetaView,     projectPath, filename) {
+  if (isarray(aMetaView) && viewPath != "") {
+    projectPath = substr(viewPath, 1, index(viewPath, aMetaView["project"]) -1);
+    projectPath = projectPath aMetaView["project"]; 
+    filename = aMetaView["file"];
+    sub(/\..+/,"", filename);
+    return lco_getController(lco_findFileController(projectPath, filename));
+  }
+  else {
+    print "Erro: Está faltando os metadados ou o caminho para o arquivo.";
+    exit 1;
+  }
 }
 
 # Procura no arquivo indicado por "controllerPath" o nome do controller.

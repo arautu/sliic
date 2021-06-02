@@ -7,6 +7,11 @@
 # * absPathFile - caminho absoluto para o nome do arquivo, no formato: xxx/yyy/arquivo.ttt 
 # Retorno: 
 # * aMetaFile - Array com os metadados do arquivo.
+#   + aMetaFile["wset"] - working set que o arquivo pertence.
+#   + aMetaFile["project"] - projeto que o arquivo pertence.
+#   + aMetaFile["module"] - Módulo que o arquivo pertence.
+#   + aMetaFile["useCase"] - Caso de uso do arquivo.
+#   + aMetaFile["file"] - Nome do arquivo e extensão.
 function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
   split(absPathFile, aPathFile, "/");
   for (i in aPathFile) {

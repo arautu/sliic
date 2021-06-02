@@ -20,6 +20,9 @@ function WSR(aPathFile, idx, tipo) {
       case /\.jsp/:
         return getDetailsFromJsp(aPathFile, idx, tipo);
         break;
+      default :
+        print "Erro: (libMetaWsr::WSR) O arquivo não pertence aos diretórios conhecidos."
+        exit 1;
     }
   }
 }

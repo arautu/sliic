@@ -1,18 +1,15 @@
 # Arquivo: libLocProperties.awk
 # Descrição: Localizar um determinado arquivo de dicionário (.properties)
 # de um projeto
-@include "sliic/libParserFilePath";
 @include "sliic/libChooseProperties";
 
 # Retorna o nome e o caminho completo para o arquivo de dicionário
 # correspondente ao endereço do arquivo, recebido como parâmetro.
 # Parâmetros:
-# * absPathFile - caminho absoluto do arquivo que se deseja achar o arquivo
-#   dicionário correspondente.
+# * aMetaFile - Array com os metadados do arquivo.
 # Retorno:
 # * Nome e caminho completo do arquivo dicionário.
-function locProperties(absPathFile,     fileProperties, pathFileProperties) {
-  parserFilePath(absPathFile, aMetaFile);
+function locProperties(aMetaFile,     fileProperties, pathFileProperties) {
   fileProperties = chooseProperties(aMetaFile);
   for (i in msgs_paths) {
     if (msgs_paths[i] ~ aMetaFile["project"] && msgs_paths[i] ~ fileProperties) {
