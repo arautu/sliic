@@ -25,13 +25,13 @@ function locProperties(aMetaFile,     fileProperties, pathFileProperties) {
 # * path - Caminho para o diretório, onde estão os projetos.
 # Retorno:
 # * msgs_paths - Array com nome e caminho dos arquivos dicionários.
-function findFiles(path, msgs_paths,    i) {
+function findFiles(path, msgs_paths,    i, tmp) {
   find = sprintf("find %s -name \"messages-*.properties\" -not -path *bin*", path);
   print find |& "sh";
   close("sh", "to");
 
-  while (("sh" |& getline) > 0) {
-    msgs_paths[i++] = $0
+  while (("sh" |& getline tmp) > 0) {
+    msgs_paths[i++] = tmp
   }
   close ("sh");
 }

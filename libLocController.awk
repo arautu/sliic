@@ -27,10 +27,10 @@ function locController(viewPath, aMetaView,     projectPath, filename) {
 # * controllerPath - Endereço e nome do arquivo controller.
 # Retorno:
 # * Nome do controller
-function lco_getController(controllerPath,    controller) {
-  while (getline < controllerPath) {
-    if ($0 ~ /@Controller/) {
-      controller = gensub(/(.+path=)(.+)(,.+)/, "\\2","g");
+function lco_getController(controllerPath,    controller, tmp) {
+  while (getline tmp < controllerPath) {
+    if (tmp ~ /@Controller/) {
+      controller = gensub(/(.+path=)(.+)(,.+)/, "\\2","g", tmp);
       break;
     }
   }
@@ -81,14 +81,14 @@ function lco_findFileController(projectPath, filename,    oldfilename, paths, i,
 # Retorno:
 # * paths - Retorna o array "paths" com o endereço e nome de arquivos que
 # correspondem a pesquisa.
-function lco_findJavaFiles(projectPath, fileName, paths,i) {
+function lco_findJavaFiles(projectPath, fileName, paths,    i, tmp) {
   find = sprintf("find %s -name \"%s*.java\"", projectPath, fileName);
   print find |& "sh";
   close("sh", "to");
 
-  while (("sh" |& getline) > 0) {
-    if ($0 != "") {
-      paths[i++] = $0;
+  while (("sh" |& getline tmp) > 0) {
+    if (tmp != "") {
+      paths[i++] = tmp;
     }
   }
   close ("sh");

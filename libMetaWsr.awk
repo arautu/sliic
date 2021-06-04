@@ -7,12 +7,12 @@ BEGIN {
 # "useCase", em relação ao nome do projeto. Exemplo:
 # Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/
 # avisoGeralEntrada.jsp.utf8
-# Módulo está a 3 subdiretórios.
-# useCase está a 4 subdiretórios.
+# Módulo está a 4 subdiretórios.
+# useCase está a 3 subdiretórios.
   aTipo["src", "module"] = 5;
   aTipo["src", "useCase"] = 6;
-  aTipo["jsp", "module"] = 3;
-  aTipo["jsp", "useCase"] = 4;
+  aTipo["jsp", "module"] = 4;
+  aTipo["jsp", "useCase"] = 3;
 
   wsr_endSubsep();
 }

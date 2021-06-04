@@ -11,7 +11,7 @@
 #   + aMetaFile["project"] - projeto que o arquivo pertence.
 #   + aMetaFile["module"] - Módulo que o arquivo pertence.
 #   + aMetaFile["useCase"] - Caso de uso do arquivo.
-#   + aMetaFile["file"] - Nome do arquivo e extensão.
+#   + aMetaFile["file"] - Nome do arquivo.
 function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
   pfp_init();
   split(absPathFile, aPathFile, "/");
@@ -29,15 +29,12 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
   aMetaFile["module"] = @project(aPathFile, "module");
   aMetaFile["useCase"] = @project(aPathFile, "useCase");
   aMetaFile["file"] = aPathFile[i + length(aPathFile) - 1];
+  sub(/\..*/, "", aMetaFile["file"]);
   if (aMetaFile["wset"] == "") {
     printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.\n", absPathFile;
     exit 1;
   }
   pfp_end();
-  print "length", length(aPathFile);
-  for (i in aPathFile) {
-    print i, aPathFile[i];
-  }
   return 0;
 }
 
