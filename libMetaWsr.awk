@@ -1,76 +1,62 @@
 # Arquivo: libMetaWsr.awk
 # Descrição: Colhe os metadados do projeto WSR.
+BEGIN {
+  wsr_initSubsep("@");
+
+# O array aTipo mantém a contagem de subdiretórios para o "módulo" ou
+# "useCase", em relação ao nome do projeto. Exemplo:
+# Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/
+# avisoGeralEntrada.jsp.utf8
+# Módulo está a 3 subdiretórios.
+# useCase está a 4 subdiretórios.
+  aTipo["src", "module"] = 5;
+  aTipo["src", "useCase"] = 6;
+  aTipo["jsp", "module"] = 3;
+  aTipo["jsp", "useCase"] = 4;
+
+  wsr_endSubsep();
+}
 
 # Verifica no path fornecido, os diretórios relevantes e chama as funções
 # apropriadas para colher os metadados.
 # Argumentos:
 # * aPathFile - Array com pedaços do path.
-# * idx - Índice de aPathFile, onde se encontra o nome do projeto.
 # * tipo - Pode ser: "module" ou "useCase".
 # Retorno:
 # * Depende do argumento tipo. Se tipo = "module", então será retornado o
 # módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
 # o caso de uso do mesmo arquivo.
-function WSR(aPathFile, idx, tipo) {
+function WSR(aPathFile, tipo,    idx, result) {
   for (i in aPathFile) {
+    if (!idx) {
+      idx = i;
+    }
     switch (aPathFile[i]) {
       case /\<src\>/ :
-        return getDetailsFromSrc(aPathFile, idx, tipo);
+        result = aPathFile[idx + aTipo["src@"tipo]];
         break;
-      case /\.jsp/:
-        return getDetailsFromJsp(aPathFile, idx, tipo);
+      case /\.jsp/ :
+        result = aPathFile[idx + aTipo["jsp@"tipo]];
         break;
-      default :
-        print "Erro: (libMetaWsr::WSR) O arquivo não pertence aos diretórios conhecidos."
-        exit 1;
     }
   }
+  return result;
 }
 
-# Colhe os detalhes do diretório "src" do projeto.
+# Define a variável SUBSEP, salvando se preciso o valor anterior em
+# wsr_save_subsep.
 # Argumentos:
-# * aPathFile - Array com pedaços do path.
-# * idx - Índice de aPathFile, onde se encontra o nome do projeto.
-# * tipo - Pode ser: "module" ou "useCase".
-# Retorno:
-# * Depende do argumento tipo. Se tipo = "module", então será retornado o
-# módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
-# o caso de uso do mesmo arquivo.
-function getDetailsFromSrc(aPathFile, idx, tipo) {
-  switch (tipo) {
-    case "module" :
-      if ((idx+5) >= length(aPathFile))
-        return "";
-      return aPathFile[idx+5];
-    case "useCase" :
-      if ((idx+6) >= length(aPathFile))
-        return "";
-      return aPathFile[idx+6];
-    default :
-      print "Erro: Módulo ou caso de uso não encontrado.";
-      exit 1;
+# * subsep - O valor de SUBSEP.
+function wsr_initSubsep(subsep) {
+  if (SUBSEP) {
+    wsr_save_subsep = SUBSEP;
   }
+  SUBSEP = subsep;
 }
 
-# Colhe os detalhes do arquivo JSP.
-# Argumentos:
-# * aPathFile - Array com pedaços do path.
-# * idx - Índice de aPathFile, onde se encontra o nome do projeto.
-# * tipo - Pode ser: "module" ou "useCase".
-# Retorno:
-# * Depende do argumento tipo. Se tipo = "module", então será retornado o
-# módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
-# o caso de uso do mesmo arquivo.
-function getDetailsFromJsp(aPathFile, idx, tipo) {
-  switch (tipo) {
-    case "module" :
-      if ((idx+4) >= length(aPathFile))
-        return "";
-      return aPathFile[idx+4];
-    case "useCase" :
-      return "jsp"; 
-    default :
-      print "Erro: Módulo ou caso de uso não encontrado.";
-      exit 1;
+# Devolve o valor anterior de SUBSEP, através de wsr_save_subsep.
+function wsr_endSubsep() {
+  if (wsr_save_subsep) {
+    SUBSEP = wsr_save_subsep;
   }
 }
