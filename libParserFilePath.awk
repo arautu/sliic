@@ -31,8 +31,9 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
   aMetaFile["file"] = aPathFile[i + length(aPathFile) - 1];
   sub(/\..*/, "", aMetaFile["file"]);
   if (aMetaFile["wset"] == "") {
-    printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.\n", absPathFile;
-    exit 1;
+    printf "O arquivo '%s', não pertence a nenhum working set conhecido do projeto Sliic.\n",
+           absPathFile > "/dev/tty";
+    return -1;
   }
   pfp_end();
   return 0;

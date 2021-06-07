@@ -20,12 +20,18 @@ function rewind(  i) {
   nextfile;
 }
 
+function renameFiles() {
+  
+
+}
+
 # Converte encodes de UTF-8 para ISO8859-1
-function convertUtf8ToIso8859(  oldfilename) {
-  if (FILENAME ~ ".utf8") {
-    oldfilename = ARGV[ARGIND - 1];
-    printf "iconv -c -f utf8 -t iso-8859-1 %1$s.utf8 > %1$s\n", oldfilename | "sh";
-    printf "rm %s", FILENAME | "sh";
-    close ("sh");
+function convertUtf8ToIso8859(  i) {
+  for (i = 0; i <= ARGC; i++) {
+    if (ARGV[i] ~ ".utf8") {
+      printf "iconv -c -f utf8 -t iso-8859-1 %s > %s\n", ARGV[i], ARGV[i-1] | "sh";
+      printf "rm %s", ARGV[i] | "sh";
+      close ("sh");
+    }
   }
 }

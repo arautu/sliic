@@ -17,8 +17,8 @@ function locController(viewPath, aMetaView,     projectPath, filename) {
     return lco_getController(lco_findFileController(projectPath, filename));
   }
   else {
-    print "Erro: Está faltando os metadados ou o caminho para o arquivo.";
-    exit 1;
+    print "Erro: Está faltando os metadados ou o caminho para o arquivo." > "/dev/tty";
+    return -1;
   }
 }
 
@@ -62,11 +62,12 @@ function lco_findFileController(projectPath, filename,    oldfilename, paths, i,
     }
   }
   if (length(paths) > 1) {
-    printf "Erro: Encontrado mais de 1 arquivo controller correspondente a %s\n", oldfilename;
+    printf "Erro: Encontrado mais de 1 arquivo controller correspondente a %s\n",
+           oldfilename > "/dev/tty";
     for (i in paths) {
-      printf "Encontrado: %s\n", paths[i];
+      printf "Encontrado: %s\n", paths[i] > "/dev/tty";
     }
-    exit 1;
+    return -1;
   }
   else {
     return controllerPath;

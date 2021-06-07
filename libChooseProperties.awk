@@ -61,7 +61,6 @@ function cp_sliicGateway(   prop) {
 }
 
 function cp_wsr(   prop) {
-  print "cp_wsr";
   return cp_sliicGateway();
 }
 
