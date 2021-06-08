@@ -8,17 +8,19 @@
 #   aMetaView - Array com metadados do arquivo de dados.
 # Retorno
 # * Nome do controller.
-function locController(viewPath, aMetaView,     projectPath, filename) {
+function locController(viewPath, aMetaView,     projectPath, filename, fileController) {
   if (isarray(aMetaView) && viewPath != "") {
     projectPath = substr(viewPath, 1, index(viewPath, aMetaView["project"]) -1);
     projectPath = projectPath aMetaView["project"]; 
     filename = aMetaView["file"];
     sub(/\..+/,"", filename);
-    return lco_getController(lco_findFileController(projectPath, filename));
+    fileController = lco_findFileController(projectPath, filename);
+    if (fileController) {
+      return lco_getController(fileController);
+    }
   }
   else {
     print "Erro: Está faltando os metadados ou o caminho para o arquivo." > "/dev/tty";
-    return -1;
   }
 }
 
@@ -30,7 +32,7 @@ function locController(viewPath, aMetaView,     projectPath, filename) {
 function lco_getController(controllerPath,    controller, tmp) {
   while (getline tmp < controllerPath) {
     if (tmp ~ /@Controller/) {
-      controller = gensub(/(.+path=)(.+)(,.+)/, "\\2","g", tmp);
+      controller = gensub(/(.+path\s?=\s?)(.+)(,.+)/, "\\2","g", tmp);
       break;
     }
   }
@@ -62,12 +64,14 @@ function lco_findFileController(projectPath, filename,    oldfilename, paths, i,
     }
   }
   if (length(paths) > 1) {
-    printf "Erro: Encontrado mais de 1 arquivo controller correspondente a %s\n",
+    printf " Erro: Encontrado mais de 1 arquivo controller correspondente a %s\n",
            oldfilename > "/dev/tty";
     for (i in paths) {
-      printf "Encontrado: %s\n", paths[i] > "/dev/tty";
+      printf "  Encontrado: %s\n", paths[i] > "/dev/tty";
     }
-    return -1;
+  }
+  else if (length(paths) == 0) {
+    print " Erro: Nenhum arquivo controller encontrado";
   }
   else {
     return controllerPath;
