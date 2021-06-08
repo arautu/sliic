@@ -37,6 +37,7 @@ function lco_getController(controllerPath,    controller, tmp) {
     }
   }
   gsub(/(".+\/)|"/, "", controller);
+  close(controllerPath);
   return controller;
 }
 

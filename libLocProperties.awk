@@ -9,7 +9,7 @@
 # * aMetaFile - Array com os metadados do arquivo.
 # Retorno:
 # * Nome e caminho completo do arquivo dicionário.
-function locProperties(aMetaFile,     fileProperties, pathFileProperties) {
+function locProperties(aMetaFile, msgs_paths,     fileProperties, pathFileProperties) {
   fileProperties = chooseProperties(aMetaFile);
   for (i in msgs_paths) {
     if (msgs_paths[i] ~ aMetaFile["project"] && msgs_paths[i] ~ fileProperties) {
