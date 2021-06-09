@@ -72,7 +72,7 @@ function lco_findFileController(projectPath, filename,    oldfilename, paths, i,
     }
   }
   else if (length(paths) == 0) {
-    print " Erro: Nenhum arquivo controller encontrado";
+    print " Erro: Nenhum arquivo controller encontrado" > "/dev/tty";
   }
   else {
     return controllerPath;

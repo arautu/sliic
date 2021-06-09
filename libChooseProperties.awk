@@ -81,7 +81,7 @@ function cp_sliicEEngineComportamento(   prop) {
 }
 
 function cp_sliicEModuloCadastro() {
-  return cp_sliicEEngineComportamento();
+  return cp_sliicGateway();
 }
 
 function cp_sliicEModuloComercial() {
