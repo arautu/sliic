@@ -51,9 +51,10 @@ function lco_getController(controllerPath,    controller, tmp) {
 # * Endereço e nome do arquivo controller.
 function lco_findFileController(projectPath, filename,    oldfilename, paths, i, controllerPath) {
   do {
+    filename = toupper(substr(filename,1,1)) substr(filename, 2);
     lco_findJavaFiles(projectPath, filename, paths);
     oldfilename = filename;
-    filename = lco_divideNome(toupper(substr(filename,1,1)) substr(filename, 2));
+    filename = lco_divideNome(filename);
   } while (!isarray(paths) && (filename != oldfilename))
 
   for (i in paths) {
