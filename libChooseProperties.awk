@@ -13,31 +13,44 @@
 function chooseProperties(aMetaFile,     prop) {
   switch (aMetaFile["project"]) {
     case "Sliic_Gateway" :
-      prop = cp_sliicGateway();
+      prop = cpr_Sliic_Gateway();
       break;
     case "WSR" :
-      prop = cp_wsr();
+      prop = cpr_WSR();
       break;
     case "Sliic_ERP_Beans" :
-      prop = cp_sliicErpBeans();
+      prop = cpr_Sliic_ERP_Beans();
       break;
     case "Sliic_ERP_Engine_Comportamento" :
-      prop = cp_sliicEEngineComportamento();
+      prop = cpr_Sliic_ERP_Engine_Comportamento();
       break;
-    case "Sliic_ERP_Modulo_Cadastro" :
-      prop = cp_sliicEModuloCadastro();
+    case "cpr_Sliic_ERP_Modulo_Cadastro" :
+      prop = cpr_Sliic_ERP_Modulo_Cadastro();
       break;
     case "Sliic_ERP_Modulo_Comercial" :
-      prop = cp_sliicEModuloComercial();
+      prop = cpr_Sliic_ERP_Modulo_Comercial();
       break;
     case "Sliic_ERP_Modulo_Configuracao" :
-      prop = cp_sliicEModuloConfiguracao();
+      prop = cpr_Sliic_ERP_Modulo_Configuracao();
       break;
     case "Sliic_ERP_Modulo_Expedicao" :
-      prop = cp_sliicEModuloExpedicao();
+      prop = cpr_Sliic_ERP_Modulo_Expedicao();
       break;
     case "Sliic_ERP_Modulo_GestaoComportamental" :
-      prop = cp_sliicEModuloGComportamental();
+      prop = cpr_Sliic_ERP_Modulo_GestaoComportamental();
+      break;
+    case "Sliic_ERP_Modulo_GestaoSeguranca" :
+      prop = cpr_Sliic_ERP_Modulo_GestaoSeguranca();
+      break;
+    case "Sliic_ERP_Modulo_GestaoSocioambiental" :
+      prop = cpr_Sliic_ERP_Modulo_GestaoSocioambiental();
+      break;
+    case "Sliic_ERP_Modulo_GestaoViaria" :
+      prop = cpr_Sliic_ERP_Modulo_GestaoViaria();
+      break;
+    case "Sliic_ERP_Modulo_Integracao" :
+      prop = cpr_Sliic_ERP_Modulo_Integracao();
+      break;
   }
   return prop;
 }
@@ -45,7 +58,7 @@ function chooseProperties(aMetaFile,     prop) {
 # Retorna o arquivo de dicionário apropriado do projeto em questão.
 # Retorno
 # * Nome do arquivo de dicionário
-function cp_sliicGateway(   prop) {
+function cpr_Sliic_Gateway(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
       prop = "messages-view.properties";
@@ -60,15 +73,15 @@ function cp_sliicGateway(   prop) {
   return prop;
 }
 
-function cp_wsr(   prop) {
-  return cp_sliicGateway();
+function cpr_WSR(   prop) {
+  return cpr_Sliic_Gateway();
 }
 
-function cp_sliicErpBeans() {
+function cpr_Sliic_ERP_Beans() {
   return "messages-beans-" aMetaFile["module"] ".properties"
 }
 
-function cp_sliicEEngineComportamento(   prop) {
+function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
   switch (aMetaFile["useCase"]) {
     case "bean" :
       prop = "messages-beans.properties";
@@ -80,15 +93,15 @@ function cp_sliicEEngineComportamento(   prop) {
   return prop;
 }
 
-function cp_sliicEModuloCadastro() {
-  return cp_sliicGateway();
+function cpr_Sliic_ERP_Modulo_Cadastro() {
+  return cpr_Sliic_Gateway();
 }
 
-function cp_sliicEModuloComercial() {
-  return cp_sliicEEngineComportamento();
+function cpr_Sliic_ERP_Modulo_Comercial() {
+  return cpr_Sliic_Gateway();
 }
 
-function cp_sliicEModuloConfiguracao(   prop) {
+function cpr_Sliic_ERP_Modulo_Configuracao(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
       prop = "messages-view.properties";
@@ -103,26 +116,34 @@ function cp_sliicEModuloConfiguracao(   prop) {
   return prop;
 }
 
-function cp_sliicEModuloExpedicao() {
-  return cp_sliicEEngineComportamento();
+function cpr_Sliic_ERP_Modulo_Expedicao() {
+  return cpr_Sliic_Gateway();
 }
 
-function cp_sliicEModuloGComportamental() {
+function cpr_Sliic_ERP_Modulo_GestaoComportamental() {
+  return cpr_Sliic_ERP_Modulo_Configuracao();
+}
+
+function cpr_Sliic_ERP_Modulo_GestaoSeguranca() {
+  return cpr_Sliic_ERP_Modulo_Configuracao();
+}
+
+function cpr_Sliic_ERP_Modulo_GestaoSocioambiental() {
   switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "messages-view.properties";
+      break;
     case "bean" :
       prop = "messages-beans-" aMetaFile["module"] ".properties";
-      break;
-    default :
-      prop = "messages-business.properties";
       break;
   }
   return prop;
 }
 
-function cp_sliicEModuloGSeguranca() {
-  return cp_sliicEModuloGComportamental();
+function cpr_Sliic_ERP_Modulo_GestaoViaria() {
+  return cpr_Sliic_Gateway();
 }
 
-function cp_sliicEModuloGSAmbiental() {
-  return cp_sliicErpBeans();
+function cpr_Sliic_ERP_Modulo_Integracao() {
+  return cpr_Sliic_Gateway();
 }
