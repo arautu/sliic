@@ -24,7 +24,7 @@ function chooseProperties(aMetaFile,     prop) {
     case "Sliic_ERP_Engine_Comportamento" :
       prop = cpr_Sliic_ERP_Engine_Comportamento();
       break;
-    case "cpr_Sliic_ERP_Modulo_Cadastro" :
+    case "Sliic_ERP_Modulo_Cadastro" :
       prop = cpr_Sliic_ERP_Modulo_Cadastro();
       break;
     case "Sliic_ERP_Modulo_Comercial" :
@@ -59,6 +59,7 @@ function chooseProperties(aMetaFile,     prop) {
 # Retorno
 # * Nome do arquivo de dicionário
 function cpr_Sliic_Gateway(   prop) {
+  print "aff ->", aMetaFile["useCase"];
   switch (aMetaFile["useCase"]) {
     case "jsp" :
       prop = "messages-view.properties";
