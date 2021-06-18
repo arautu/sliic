@@ -59,7 +59,6 @@ function chooseProperties(aMetaFile,     prop) {
 # Retorno
 # * Nome do arquivo de dicionário
 function cpr_Sliic_Gateway(   prop) {
-  print "aff ->", aMetaFile["useCase"];
   switch (aMetaFile["useCase"]) {
     case "jsp" :
       prop = "messages-view.properties";
