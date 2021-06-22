@@ -51,6 +51,15 @@ function chooseProperties(aMetaFile,     prop) {
     case "Sliic_ERP_Modulo_Integracao" :
       prop = cpr_Sliic_ERP_Modulo_Integracao();
       break;
+    case "Sliic_ERP_Modulo_Operacional" :
+      prop = cpr_Sliic_ERP_Modulo_Operacional();
+      break;
+    case "Sliic_ERP_Modulo_Rastreamento" :
+      prop = cpr_Sliic_ERP_Modulo_Rastreamento();
+      break;
+    case "Sliic_ERP_Modulo_Relatorio" :
+      prop = cpr_Sliic_ERP_Modulo_Relatorio();
+      break;
   }
   return prop;
 }
@@ -145,5 +154,17 @@ function cpr_Sliic_ERP_Modulo_GestaoViaria() {
 }
 
 function cpr_Sliic_ERP_Modulo_Integracao() {
+  return cpr_Sliic_Gateway();
+}
+
+function cpr_Sliic_ERP_Modulo_Operacional() {
+  return cpr_Sliic_ERP_Modulo_Configuracao();
+}
+
+function cpr_Sliic_ERP_Modulo_Rastreamento() {
+  return cpr_Sliic_Gateway();
+}
+
+function cpr_Sliic_ERP_Modulo_Relatorio() {
   return cpr_Sliic_Gateway();
 }
