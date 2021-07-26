@@ -39,7 +39,7 @@ function findFiles(msgs_paths,    i, tmp, Oldrs) {
   while (("sh" |& getline tmp) > 0) {
     msgs_paths[i++] = tmp
   }
-  close ("sh");
+  close("sh");
   
   RS = Oldrs;
 }

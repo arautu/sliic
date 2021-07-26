@@ -98,7 +98,7 @@ function lco_findJavaFiles(projectPath, fileName, paths,    i, tmp) {
       paths[i++] = tmp;
     }
   }
-  close ("sh");
+  close("sh");
 }
 
 # Remove a última palavra de um nome que está no formato "camel case",
