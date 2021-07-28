@@ -35,13 +35,10 @@ function checkTaglib(taglib) {
       pjp_checkTaglib = 1;
       if (!pjp_existeTaglib(uri)) {
         pjp_addTaglib = 1;
-        if ("inplace::begin" in FUNCTAB) {
-          pjp_rewind();
-        }
       }
     }
     else {
-      print "Erro: Taglib não reconhecida";
+      print "Erro: Taglib não reconhecida" > "/dev/tty";
       return -1;
     }
   }
@@ -58,7 +55,7 @@ function insereTaglib() {
 
 # Adiciona novamente o arquivo de dados, para que seja possível adicionar a
 # taglib no início do arquivo.
-function pjp_rewind(  i) {
+function rewind(  i) {
   for (i = ARGC; i > ARGIND; i--) {
     ARGV[i] = ARGV[i-1];
   }
@@ -72,14 +69,13 @@ function pjp_rewind(  i) {
 # Retorno:
 # * Retorna '1' caso exista e '0', caso contrário
 function pjp_existeTaglib(uri,   tmp, existeTaglib) {
-  do {
-    getline tmp < ARGV[ARGIND];
+  while(getline tmp < ARGV[ARGIND]) {
     if (tmp ~ uri) {
       existeTaglib = 1;
     }
-  } while (tmp ~ "taglib")
+  }
   close(ARGV[ARGIND]);
-
+  
   return existeTaglib;
 }
 
