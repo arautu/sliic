@@ -17,12 +17,30 @@ function locController(viewPath, aMetaView,     projectPath, filename, fileContr
     fileController = lco_findFileController(projectPath, filename);
     if (fileController) {
       return lco_getController(fileController);
+    } else {
+      return lco_typeController(); 
     }
   }
   else {
     print "Erro: Está faltando os metadados ou o caminho para o arquivo." > "/dev/tty";
   }
 }
+
+# Interage com o usuário, através do terminal, para obter o identificador
+# único do código de dicionário.
+# Retorno:
+# O identificador do código de dicionário.
+function lco_typeController(   Oldrs, controller) {
+  Oldrs = RS;
+  RS = "\n";
+
+  printf " Entre o nome do controller: " > "/dev/tty";
+  getline controller < "/dev/stdin";
+
+  RS = Oldrs;
+
+  return controller;
+} 
 
 # Procura no arquivo indicado por "controllerPath" o nome do controller.
 # Argumentos:
