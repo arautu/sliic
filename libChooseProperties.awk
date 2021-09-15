@@ -70,13 +70,13 @@ function chooseProperties(aMetaFile,     prop) {
 function cpr_Sliic_Gateway(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
-      prop = "messages-view.properties";
+      prop = "messages-app-view.properties";
       break;
     case "bean" :
-      prop = "messages-bean.properties";
+      prop = "messages-app-bean.properties";
       break;
     default :
-      prop = "messages-business.properties";
+      prop = "messages-app-business.properties";
       break;
   }
   return prop;
@@ -87,19 +87,11 @@ function cpr_WSR(   prop) {
 }
 
 function cpr_Sliic_ERP_Beans() {
-  return "messages-beans-" aMetaFile["module"] ".properties"
+  return "messages-" aMetaFile["module"] "-bean.properties"
 }
 
 function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
-  switch (aMetaFile["useCase"]) {
-    case "bean" :
-      prop = "messages-beans.properties";
-      break;
-    default :
-      prop = "messages-business.properties";
-      break;
-  }
-  return prop;
+  return cpr_Sliic_Gateway();
 }
 
 function cpr_Sliic_ERP_Modulo_Cadastro() {
@@ -113,13 +105,13 @@ function cpr_Sliic_ERP_Modulo_Comercial() {
 function cpr_Sliic_ERP_Modulo_Configuracao(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
-      prop = "messages-view.properties";
+      prop = "messages-" aMetaFile["module"] "-view.properties";
       break;
     case "bean" :
-      prop = "messages-beans-" aMetaFile["module"] ".properties";
+      prop = "messages-" aMetaFile["module"] "-bean.properties";
       break;
     default :
-      prop = "messages-business.properties";
+      prop = "messages-" aMetaFile["module"] "-business.properties";
       break;
   }
   return prop;
@@ -138,15 +130,7 @@ function cpr_Sliic_ERP_Modulo_GestaoSeguranca() {
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoSocioambiental() {
-  switch (aMetaFile["useCase"]) {
-    case "jsp" :
-      prop = "messages-view.properties";
-      break;
-    case "bean" :
-      prop = "messages-beans-" aMetaFile["module"] ".properties";
-      break;
-  }
-  return prop;
+  return cpr_Sliic_ERP_Modulo_Configuracao();
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoViaria() {
