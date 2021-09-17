@@ -23,7 +23,7 @@ function getClass(classline,   i, arr) {
 # * retorna '1', caso a instrução 'class' seja encontrada ou nulo, caso 
 # contrário.
 function jpa_validaClass(classline) {
-  if (classline !~ /^(public|private|protected) .*\<class\>/) {
+  if (classline !~ /^\s+?(public|private|protected) .*\<class\>/) {
     print "erro: nome da classe não encontrado." > "/dev/tty";
   } 
   return 1;
@@ -54,7 +54,7 @@ function getEnum(enumline) {
 # * retorna '1', caso a instrução 'enum' seja encontrada ou nulo, caso 
 # contrário.
 function jpa_validaEnum(enumline) {
-  if (enumline !~ /^(public|private|protected) \<enum\>/) {
+  if (enumline !~ /^\s+?(public|private|protected) .*\<enum\>/) {
     print "erro: nome do enum não encontrado." > "/dev/tty";
   } 
   return 1;
