@@ -1,6 +1,7 @@
 # Arquivo: libParserFilePath.awk
   
-@include "sliic/libMetaWsr"
+@include "sliic/l_Wsr"
+@include "sliic/l_Sliic_ERP_Engine_Vehicle_Physics"
 
 # Analisa o caminho do arquivo, retornando um array de metadados do path.
 # Argumentos:
@@ -50,7 +51,7 @@ function parserFilePath(absPathFile, aMetaFile,    i, aPathFile, project) {
 # o caso de uso do mesmo arquivo.
 #
 # **Observe** que ela usa a função WSR(), porém, caso haja alguma diferença,
-# deve-se criar uma lib semelhante à libMetaWsr. 
+# deve-se criar uma lib semelhante à l_Wsr. 
 function Sliic_Gateway(aPathFile, tipo) {
   return WSR(aPathFile, tipo);
 }

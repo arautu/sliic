@@ -24,6 +24,9 @@ function chooseProperties(aMetaFile,     prop) {
     case "Sliic_ERP_Engine_Comportamento" :
       prop = cpr_Sliic_ERP_Engine_Comportamento();
       break;
+    case "Sliic_ERP_Engine_Vehicle_Physics" :
+      prop = cpr_Sliic_ERP_Engine_Vehicle_Physics();
+      break;
     case "Sliic_ERP_Modulo_Cadastro" :
       prop = cpr_Sliic_ERP_Modulo_Cadastro();
       break;
@@ -91,6 +94,10 @@ function cpr_Sliic_ERP_Beans() {
 }
 
 function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
+  return cpr_Sliic_Gateway();
+}
+
+function cpr_Sliic_ERP_Engine_Vehicle_Physics(   prop) {
   return cpr_Sliic_Gateway();
 }
 
