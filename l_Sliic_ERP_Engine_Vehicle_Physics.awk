@@ -1,18 +1,5 @@
 # Arquivo: l_Sliic_ERP_Engine_Vehicle_Physics.awk  
 # Descrição: Colhe os metadados do projeto Sliic_ERP_Engine_Vehicle_Physics.
-BEGINFILE {
-  phy_initSubsep("@");
-
-# O array aTipo mantém a contagem de subdiretórios para o "módulo" ou
-# "useCase", em relação ao nome do projeto. Exemplo:
-# Sliic_ERP_Engine_Vehicle_Physics/src/com/sliic/vphysics/bean/ComposicaoVeiculos.java
-# Módulo está a 4 subdiretórios.
-# useCase está a 3 subdiretórios.
-  aTipo["src", "module"] = 4;
-  aTipo["src", "useCase"] = 5;
-
-  phy_endSubsep();
-}
 
 # Verifica no path fornecido, os diretórios relevantes e chama as funções
 # apropriadas para colher os metadados.
@@ -24,20 +11,30 @@ BEGINFILE {
 # módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
 # o caso de uso do mesmo arquivo.
 function Sliic_ERP_Engine_Vehicle_Physics(aPathFile, tipo,    idx, result) {
+  phy_referencia(aTipo);
   for (i in aPathFile) {
-    if (!idx) {
-      idx = i;
-    }
-    switch (aPathFile[i]) {
-      case /\<src\>/ :
-        result = aPathFile[idx + aTipo["src@"tipo]];
-        break;
-      case /\.jsp/ :
-        result = aPathFile[idx + aTipo["jsp@"tipo]];
-        break;
-    }
+    result = aPathFile[i + aTipo["src@"tipo]];
+    break;
   }
-  return result;
+}
+
+# Retorna um array contendo a contagem de subdiretórios a partir do nome
+# do projeto até um subdiretório específico, por exemplo, o subdiretório
+# do módulo ou caso de uso.
+# Exemplo:
+# Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/
+# avisoGeralEntrada.jsp.utf8
+# Módulo está a 4 subdiretórios.
+# useCase está a 3 subdiretórios.
+# Argumentos:
+# * array - Array com o resultado de interesse em relação ao projeto.
+function phy_referencia(array) {
+  initSubsep("@");
+  
+  array["src", "module"] = 4;
+  array["src", "useCase"] = 5;
+
+  endSubsep();
 }
 
 # Define a variável SUBSEP, salvando se preciso o valor anterior em

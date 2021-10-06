@@ -98,7 +98,15 @@ function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
 }
 
 function cpr_Sliic_ERP_Engine_Vehicle_Physics(   prop) {
-  return cpr_Sliic_Gateway();
+  switch (aMetaFile["useCase"]) {
+    case "bean" :
+      prop = "messages-app-bean.properties";
+      break;
+    default :
+      prop = "messages-app-bean.properties";
+      break;
+  }
+  return prop;
 }
 
 function cpr_Sliic_ERP_Modulo_Cadastro() {

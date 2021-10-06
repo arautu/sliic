@@ -1,21 +1,6 @@
 # Arquivo: l_Wsr.awk
 # Descrição: Colhe os metadados do projeto WSR.
-BEGINFILE {
-  wsr_initSubsep("@");
-
-# O array aTipo mantém a contagem de subdiretórios para o "módulo" ou
-# "useCase", em relação ao nome do projeto. Exemplo:
-# Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/
-# avisoGeralEntrada.jsp.utf8
-# Módulo está a 4 subdiretórios.
-# useCase está a 3 subdiretórios.
-  aTipo["src", "module"] = 5;
-  aTipo["src", "useCase"] = 6;
-  aTipo["jsp", "module"] = 4;
-  aTipo["jsp", "useCase"] = 3;
-
-  wsr_endSubsep();
-}
+@include "sliic/l_commons.awk"
 
 # Verifica no path fornecido, os diretórios relevantes e chama as funções
 # apropriadas para colher os metadados.
@@ -27,6 +12,8 @@ BEGINFILE {
 # módulo do projeto do qual o arquivo pertence. Se tipo = "useCase", retorna
 # o caso de uso do mesmo arquivo.
 function WSR(aPathFile, tipo,    idx, result) {
+  wsr_referencia(aTipo);
+
   for (i in aPathFile) {
     if (!idx) {
       idx = i;
@@ -43,20 +30,24 @@ function WSR(aPathFile, tipo,    idx, result) {
   return result;
 }
 
-# Define a variável SUBSEP, salvando se preciso o valor anterior em
-# wsr_save_subsep.
+# Retorna um array contendo a contagem de subdiretórios a partir do nome
+# do projeto até um subdiretório específico, por exemplo, o subdiretório
+# do módulo ou caso de uso.
+# Exemplo:
+# Sliic_ERP_Modulo_Configuracao/webapp/WEB-INF/jsp/configuracao/
+# avisoGeralEntrada.jsp.utf8
+# Módulo está a 4 subdiretórios.
+# useCase está a 3 subdiretórios.
 # Argumentos:
-# * subsep - O valor de SUBSEP.
-function wsr_initSubsep(subsep) {
-  if (SUBSEP) {
-    wsr_save_subsep = SUBSEP;
-  }
-  SUBSEP = subsep;
+# * array - Array com o resultado de interesse em relação ao projeto.
+function wsr_referencia(array) {
+  initSubsep("@");
+
+  array["src", "module"] = 5;
+  array["src", "useCase"] = 6;
+  array["jsp", "module"] = 4;
+  array["jsp", "useCase"] = 3;
+
+  endSubsep();
 }
 
-# Devolve o valor anterior de SUBSEP, através de wsr_save_subsep.
-function wsr_endSubsep() {
-  if (wsr_save_subsep) {
-    SUBSEP = wsr_save_subsep;
-  }
-}
