@@ -90,7 +90,7 @@ function cpr_WSR(   prop) {
 }
 
 function cpr_Sliic_ERP_Beans() {
-  return "messages-" aMetaFile["module"] "-bean.properties"
+  return "messages-commons" aMetaFile["module"] "-bean.properties"
 }
 
 function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
@@ -110,11 +110,11 @@ function cpr_Sliic_ERP_Engine_Vehicle_Physics(   prop) {
 }
 
 function cpr_Sliic_ERP_Modulo_Cadastro() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Configuracao();
 }
 
 function cpr_Sliic_ERP_Modulo_Comercial() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Configuracao();
 }
 
 function cpr_Sliic_ERP_Modulo_Configuracao(   prop) {
