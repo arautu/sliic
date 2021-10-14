@@ -6,7 +6,7 @@
 # ex: 'Minhaclasse'.
 function getClass(classline,   i, arr) {
   if (jpa_validaClass(classline)) {
-    split(classline, arr, "[ <]");
+    split(classline, arr, "[ <{]");
     for (i in arr) {
       if (arr[i] ~ "class") {
         break;
