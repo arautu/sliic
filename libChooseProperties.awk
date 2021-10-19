@@ -21,16 +21,16 @@ function chooseProperties(aMetaFile,     projeto) {
 function cpr_Sliic_Gateway(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
-      prop = "messages-app-view.properties";
+      prop = "app-view";
       break;
     case "bean" :
-      prop = "messages-app-bean.properties";
+      prop = "app-bean";
       break;
     default :
-      prop = "messages-app-business.properties";
+      prop = "app-business";
       break;
   }
-  return prop;
+  return "messages-" prop ".properties";
 }
 
 function cpr_WSR(   prop) {
@@ -46,72 +46,144 @@ function cpr_Sliic_ERP_Engine_Comportamento(   prop) {
 }
 
 function cpr_Sliic_ERP_Engine_Vehicle_Physics(   prop) {
-  switch (aMetaFile["useCase"]) {
-    case "bean" :
-      prop = "messages-app-bean.properties";
-      break;
-    default :
-      prop = "messages-app-bean.properties";
-      break;
-  }
-  return prop;
+  return "messages-app-bean.properties";
 }
 
 function cpr_Sliic_ERP_Modulo_Cadastro() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return "messages-" aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_Comercial() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
-function cpr_Sliic_ERP_Modulo_Configuracao(   prop) {
+function cpr_Sliic_ERP_Modulo_Configuracao(   prop, prefixo) {
+  if (aMetaFile["module"] == "relatorio") {
+    prefixo = "messages-configuracao-";
+  } else {
+    prefixo = "messages-";
+  }
   switch (aMetaFile["useCase"]) {
     case "jsp" :
-      prop = "messages-" aMetaFile["module"] "-view.properties";
+      prop = "-view";
       break;
     case "bean" :
-      prop = "messages-" aMetaFile["module"] "-bean.properties";
+      prop = "-bean";
       break;
     default :
-      prop = "messages-" aMetaFile["module"] "-business.properties";
+      prop = "-business";
       break;
   }
-  return prop;
+  return prefixo aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_Expedicao() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoComportamental() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  if (aMetaFile["module"] == "relatorio") {
+    prefixo = "messages-gestaocomportamental-";
+  } else {
+    prefixo = "messages-";
+  }
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return prefixo aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoSeguranca() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  if (aMetaFile["module"] == "relatorio") {
+    prefixo = "messages-gestaoseguranca-";
+  } else {
+    prefixo = "messages-";
+  }
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return prefixo aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoSocioambiental() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  if (aMetaFile["module"] == "relatorio") {
+    prefixo = "messages-gestaosocioambiental-";
+  } else {
+    prefixo = "messages-";
+  }
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return prefixo aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_GestaoViaria() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
 function cpr_Sliic_ERP_Modulo_Integracao() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
 function cpr_Sliic_ERP_Modulo_Operacional() {
-  return cpr_Sliic_ERP_Modulo_Configuracao();
+  if (aMetaFile["module"] == "relatorio") {
+    prefixo = "messages-operacional-";
+  } else {
+    prefixo = "messages-";
+  }
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return prefixo aMetaFile["module"] prop ".properties";
 }
 
 function cpr_Sliic_ERP_Modulo_Rastreamento() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
 function cpr_Sliic_ERP_Modulo_Relatorio() {
-  return cpr_Sliic_Gateway();
+  return cpr_Sliic_ERP_Modulo_Cadastro();
 }
