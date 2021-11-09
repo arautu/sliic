@@ -49,7 +49,7 @@ function cpr_Sliic_ERP_Engine_Vehicle_Physics(   prop) {
   return "messages-app-bean.properties";
 }
 
-function cpr_Sliic_ERP_Modulo_Cadastro() {
+function cpr_Sliic_ERP_Modulo_Cadastro(   prop) {
   switch (aMetaFile["useCase"]) {
     case "jsp" :
       prop = "-view";
@@ -92,7 +92,7 @@ function cpr_Sliic_ERP_Modulo_Expedicao() {
   return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
-function cpr_Sliic_ERP_Modulo_GestaoComportamental() {
+function cpr_Sliic_ERP_Modulo_GestaoComportamental(   prop, prefixo) {
   if (aMetaFile["module"] == "relatorio") {
     prefixo = "messages-gestaocomportamental-";
   } else {
@@ -112,7 +112,7 @@ function cpr_Sliic_ERP_Modulo_GestaoComportamental() {
   return prefixo aMetaFile["module"] prop ".properties";
 }
 
-function cpr_Sliic_ERP_Modulo_GestaoSeguranca() {
+function cpr_Sliic_ERP_Modulo_GestaoSeguranca(  prop, prefixo) {
   if (aMetaFile["module"] == "relatorio") {
     prefixo = "messages-gestaoseguranca-";
   } else {
@@ -132,7 +132,7 @@ function cpr_Sliic_ERP_Modulo_GestaoSeguranca() {
   return prefixo aMetaFile["module"] prop ".properties";
 }
 
-function cpr_Sliic_ERP_Modulo_GestaoSocioambiental() {
+function cpr_Sliic_ERP_Modulo_GestaoSocioambiental(   prop, prefixo) {
   if (aMetaFile["module"] == "relatorio") {
     prefixo = "messages-gestaosocioambiental-";
   } else {
@@ -160,7 +160,7 @@ function cpr_Sliic_ERP_Modulo_Integracao() {
   return cpr_Sliic_ERP_Modulo_Cadastro();
 }
 
-function cpr_Sliic_ERP_Modulo_Operacional() {
+function cpr_Sliic_ERP_Modulo_Operacional(  prop, prefixo) {
   if (aMetaFile["module"] == "relatorio") {
     prefixo = "messages-operacional-";
   } else {
@@ -186,4 +186,25 @@ function cpr_Sliic_ERP_Modulo_Rastreamento() {
 
 function cpr_Sliic_ERP_Modulo_Relatorio() {
   return cpr_Sliic_ERP_Modulo_Cadastro();
+}
+
+function cpr_Sliic_Solar(   prop, projeto) {
+  projeto  = tolower(aMetaFile["project"]);
+
+  switch (aMetaFile["useCase"]) {
+    case "jsp" :
+      prop = "-view";
+      break;
+    case "bean" :
+      prop = "-bean";
+      break;
+    default :
+      prop = "-business";
+      break;
+  }
+  return "messages-" projeto prop ".properties";
+}
+
+function cpr_Sliic_Usiminas() {
+  return cpr_Sliic_Solar();
 }

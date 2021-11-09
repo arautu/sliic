@@ -108,6 +108,14 @@ function Sliic_ERP_Modulo_Relatorio(aPathFile, tipo) {
   return WSR(aPathFile, tipo);
 }
 
+function Sliic_Solar(aPathFile, tipo) {
+  return WSR(aPathFile, tipo);
+}
+
+function Sliic_Usiminas(aPathFile, tipo) {
+  return WSR(aPathFile, tipo);
+}
+
 function pfp_init() {
   if ("sorted_in" in PROCINFO) {
     pfp_save_sorted = PROCINFO["sorted_in"];
